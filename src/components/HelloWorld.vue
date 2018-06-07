@@ -1,8 +1,6 @@
 <template>
     <div class="hello" id="editor">
-        <h1>{{ msg }}</h1>
-        <button @click="update">Click Me</button>
-        <textarea :value="input"></textarea>
+        <textarea :value="input" v-on:input="update($event)"></textarea>
        <!-- <textarea :value="input" @input="update"></textarea> -->
         <div v-html="compiledMarkdown"></div>
     </div>
@@ -10,6 +8,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
+    import { Marked } from 'marked-ts';
 
     export default Vue.extend({
         name: 'HelloWorld',
@@ -19,13 +18,13 @@
         },
         computed: {
             compiledMarkdown: function () {
-                return this.input + '<h3>compiled sddsf</h3>'//marked(this.input, { sanitize: true })
+                return Marked.parse(this.input)
             }
         },
         methods: {
             update: function(e) {
-                console.log(e)
-                this.input = "new input"
+                console.log(e.target.value);
+                this.input = e.target.value
             }
         }
 
