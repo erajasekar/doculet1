@@ -1,6 +1,6 @@
 <template>
     <div class="hello" id="editor">
-        <textarea :value="input" v-on:input="update($event)"></textarea>
+        <textarea v-model="input"></textarea>
        <!-- <textarea :value="input" @input="update"></textarea> -->
         <div v-html="compiledMarkdown"></div>
     </div>
@@ -21,12 +21,6 @@
                 return Marked.parse(this.input)
             }
         },
-        methods: {
-            update: function(e) {
-                console.log(e.target.value);
-                this.input = e.target.value
-            }
-        }
 
     });
 </script>
