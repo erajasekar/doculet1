@@ -1,7 +1,7 @@
 <template>
     <div class="hello" id="editor">
-        <textarea v-model="input"></textarea>
-       <!-- <textarea :value="input" @input="update"></textarea> -->
+       <!-- <textarea v-model="input"></textarea> -->
+        <textarea :value="input" @input="update"></textarea>
         <div v-html="compiledMarkdown"></div>
     </div>
 </template>
@@ -9,6 +9,7 @@
 <script lang="ts">
     import Vue from 'vue';
     import { Marked } from 'marked-ts';
+    import _ from 'lodash';
 
     export default Vue.extend({
         name: 'HelloWorld',
@@ -20,7 +21,17 @@
                 input: '# hello',
             };
         },
-       computed: {
+
+        methods: {
+           /* update(e) {
+                this.input = e.target.value;
+            },
+            updateWithDebounce: _.debounce(update, 2000),*/
+            update: _.debounce(function(e) {
+                this.input = e.target.value;
+            }, 2000),
+        },
+        computed: {
             compiledMarkdown(): string {
                 return Marked.parse(this.input);
             },
