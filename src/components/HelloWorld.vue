@@ -14,14 +14,17 @@
         name: 'HelloWorld',
         props: {
             msg: String,
-            input: '# hello'
         },
-        computed: {
-            compiledMarkdown: function () {
-                return Marked.parse(this.input)
-            }
+        data() {
+            return {
+                input: '# hello',
+            };
         },
-
+       computed: {
+            compiledMarkdown(): string {
+                return Marked.parse(this.input);
+            },
+        },
     });
 </script>
 
