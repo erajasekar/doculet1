@@ -1,7 +1,7 @@
 <template>
     <div class="hello" id="editor">
        <!-- <textarea v-model="input"></textarea> -->
-        <textarea :value="input" @input="update"></textarea>
+        <textarea :value="input" @input="updateWithDebounce"></textarea>
         <div v-html="compiledMarkdown"></div>
     </div>
 </template>
@@ -9,7 +9,9 @@
 <script lang="ts">
     import Vue from 'vue';
     import { Marked } from 'marked-ts';
-    import _ from 'lodash';
+    // import _ from 'lodash';
+    // import { debounce } from 'typescript-debounce-decorator';
+    import { debounce } from 'ts-debounce';
 
     export default Vue.extend({
         name: 'HelloWorld',
@@ -29,9 +31,19 @@
             updateWithDebounce: _.debounce(update, 2000),
             update: _.debounce(function(e) {
                 this.input = e.target.value;
-            }, 2000),*/
+            }, 2000),
 
-            update(e: any) {
+           updateWithDebounce(e: any) {
+
+               debounce(() => {this.input = e.target.value; console.log(e); }, 100);
+           },*/
+
+            updateWithDebounce: debounce(function(e: any) {
+                this.input = e.target.value;
+            }, 2000),
+
+
+           update(e: any) {
                 this.input = e.target.value;
             },
 
