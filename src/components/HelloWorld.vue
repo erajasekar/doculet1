@@ -26,10 +26,15 @@
            /* update(e) {
                 this.input = e.target.value;
             },
-            updateWithDebounce: _.debounce(update, 2000),*/
+            updateWithDebounce: _.debounce(update, 2000),
             update: _.debounce(function(e) {
                 this.input = e.target.value;
-            }, 2000),
+            }, 2000),*/
+
+            update(e: any) {
+                this.input = e.target.value;
+            },
+
         },
         computed: {
             compiledMarkdown(): string {
